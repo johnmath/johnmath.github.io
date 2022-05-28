@@ -3,8 +3,6 @@ layout: about
 title: about
 permalink: /
 subtitle: Computer Science PhD Student at Northeastern University
-nav: true
-nav_order: 1
 
 profile:
   align: right
