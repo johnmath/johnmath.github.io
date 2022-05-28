@@ -3,9 +3,8 @@ layout: page
 title: cv
 permalink: /cv/
 description: a brief cv
-nav: false
+nav: true
 nav_order: 2
-horizontal: false
 ---
 
 #### Education

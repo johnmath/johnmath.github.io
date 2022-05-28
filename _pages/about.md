@@ -1,9 +1,9 @@
 ---
 layout: about
-title: bio
-permalink: /bio/
+title: about
+permalink: /
 subtitle: Computer Science PhD Student at Northeastern University
-nav: false
+nav: true
 nav_order: 1
 
 profile:
@@ -11,7 +11,7 @@ profile:
   image: me.jpeg
   address: >
     <p>ISEC 6th Floor</p>
-    <p>8-5 Columbus Ave</p>
+    <p>805 Columbus Ave</p>
     <p>Boston, MA 021155</p>
 
 news: true  # includes a list of news items
