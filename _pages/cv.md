@@ -3,8 +3,6 @@ layout: page
 title: cv
 permalink: /cv/
 description: a brief cv
-nav: true
-nav_order: 2
 ---
 
 #### Education
@@ -13,10 +11,11 @@ nav_order: 2
     * Honors Thesis: "A Standardized Approach to Studying the Double Descent Phenomenon"
 
 #### Technical Experience
-* **Software Engineer Intern**, *[Sphero](https://sphero.com/)* (Boulder, CO), Summer 2019
-* **Machine Learning Intern**, *[NewSci, LLC](https://www.newsci.ai)* (Tallahassee, FL), Fall 2019 - Spring 2021
-* **Software Engineer Intern (iOS)**, *[Intuit](https://www.intuit.com/)* (Mountain View, CA), Summer 2020
 * **Software Engineer Intern (iOS)**, *[Intuit](https://www.intuit.com/)* (Mountain View, CA), Summer 2021
+* **Software Engineer Intern (iOS)**, *[Intuit](https://www.intuit.com/)* (Mountain View, CA), Summer 2020
+* **Machine Learning Intern**, *[NewSci, LLC](https://www.newsci.ai)* (Tallahassee, FL), Fall 2019 - Spring 2021
+* **Software Engineer Intern**, *[Sphero](https://sphero.com/)* (Boulder, CO), Summer 2019
+
 
 #### Teaching Experience
 * **Tutorial Assistant**, *[Florida State University](https://math.fsu.edu/)*, Fall 2018 - Spring 2019
