@@ -25,7 +25,7 @@ Recent empirical evidence suggests that there exists more than one "training reg
 
 Binary Classification | Regression
 - | - 
-<img src="{{site.baseurl}}/media/binary_sing.gif" alt="sing_binary" width="400"> | <img src="{{site.baseurl}}/media/sine_nw_singular.gif" alt="sing_sine" width="400">
+<img src="{{site.baseurl}}/assets/img/media/binary_sing.gif" alt="sing_binary" width="400"> | <img src="{{site.baseurl}}/assets/img/media/sine_nw_singular.gif" alt="sing_sine" width="400">
 
 
 **Fig 1. Our Reproduction of the Interpolating Nadaraya-Watson Estimator for Classification and Regression**
@@ -33,7 +33,7 @@ Binary Classification | Regression
 Since this paper was published, [this idea has been extended to deep learning models](https://openai.com/blog/deep-double-descent/), and the results have matched Belkin's results with smaller-scale nonparametric regression. 
 
 
-<img align="center" src="{{site.baseurl}}/media/double-descent.png" alt="OpenAI-DD">
+<img align="center" src="{{site.baseurl}}/assets/img/media/double-descent.png" alt="OpenAI-DD">
 
 **Fig 2. The Double Descent Curve**
 
@@ -48,7 +48,7 @@ The goal of this project was to create a similar platform for double descent res
 
 ## Project Architecture
 
-<img align="center" src="{{site.baseurl}}/media/honors_work_module.png" alt="DD_TestBed" width="75%">
+<img align="center" src="{{site.baseurl}}/assets/img/media/honors_work_module.png" alt="DD_TestBed" width="75%">
 
 **Fig 3. Architecture of the Double Descent Testbed**
 
@@ -60,7 +60,7 @@ The project consists of four sub-modules: **models**, **data**, **utils**, and *
 
 The **data** module has two versions of the MNIST dataset: a PyTorch implementation and a scikit-learn implementation. The PyTorch implementation contains two PyTorch dataloaders along with exposed parameters such as batch sizes and number of training samples. The PyTorch dataloaders are iterable objects that contain a dataset object within them. By using a dataloader, we can apply transformations to the data and shuffle the dataset prior to training our model. The scikit-learn implementation of MNIST simply returns an $$N \times 784$$ matrix where $$N$$ is the number of training samples and each row is a 784-dimensional vector that encodes a 28 x 28 image. Both of these implementations download and save the dataset to a local repository where it can be reused without having to wait for the data to be downloaded a second time. 
 
-<img align="center" src="{{site.baseurl}}/media/mnist.jpeg" alt="MNIST" width="40%">
+<img align="center" src="{{site.baseurl}}/assets/img/media/mnist.jpeg" alt="MNIST" width="40%">
 
 **Fig 4. A Sample of Images from the MNIST Dataset**
 
@@ -71,20 +71,20 @@ The **data** module has two versions of the MNIST dataset: a PyTorch implementat
 The multilayer perceptron is made up of 3 layers, an input layer, a hidden layer, and an output layer (This type of model is sometimes referred to as a two-layer neural network). All three have variable size depending on the dataset that is being trained on. The input layer has $$d = n \cdot m$$ units where $$n$$ and $$m$$ are the dimensions of the input data, as the images are flattened before being passed through the network. The hidden layer has $$h_{i}$$ units, where $$h_{i}$$ is computed using a desired number of total parameters and the formula for total parameters in Figure 3. The output layer has $$K$$ units where $$K$$ is the number of output classes. This model also has ReLU activation functions on both the input layer and hidden layer.
 
 
-<img align="center" src="{{site.baseurl}}/media/param_counts_eq.png" alt="audit_params" width="400">
+<img align="center" src="{{site.baseurl}}/assets/img/media/param_counts_eq.png" alt="audit_params" width="400">
 
 **Fig 5. Equation to Calculate Number of Parameters in a Two-Layer Neural Network**
 
 
 
 
-<img align="center" src="{{site.baseurl}}/media/MLP.png" alt="MLP_Arch" width="400">
+<img align="center" src="{{site.baseurl}}/assets/img/media/MLP.png" alt="MLP_Arch" width="400">
 
 **Fig 6. Visualization of our Two-Layer Neural Network**
 
 One main feature of the multilayer perceptron wrapper is its built-in [TensorBoard](https://www.tensorflow.org/tensorboard/get_started) functionality. TensorBoard is a visualization dashboard for machine learning experiments. It runs in a web server and reads from a log directory that is produced by the neural network training loop in the double descent testbed. Throughout the training process, we log all training and testing losses for each individual model, as well as the final losses of each model. On this dashboard, we also expose the architecture of the current model that is being experimented on (i.e. its computational graph) and a sample of the dataset that is being used to train the model.
 
-<img align="center" src="{{site.baseurl}}/media/TensorBoard-Sample2.png" alt="Tensorboard" width="75%">
+<img align="center" src="{{site.baseurl}}/assets/img/media/TensorBoard-Sample2.png" alt="Tensorboard" width="75%">
 
 **Fig 7. A Screenshot of Tensorboard (Test Loss vs. Model Capacity in # parameters)**
         
@@ -130,7 +130,7 @@ def Parameter_Count_Generation(param_counts, test_losses, past_interpolation_thr
 ```
 
 
-<img align="center" src="{{site.baseurl}}/media/dd_2.gif" alt="param_gen">
+<img align="center" src="{{site.baseurl}}/assets/img/media/dd_2.gif" alt="param_gen">
 
 **Fig 8. Our Parameter Counts Generation Algorithm Running on a Synthetic Double Descent Curve**
 

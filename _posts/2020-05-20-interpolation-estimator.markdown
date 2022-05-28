@@ -13,7 +13,7 @@ The aim of this paper was to show that interpolating training data can still lea
 [1]
 
 
-<img src="{{site.baseurl}}/media/double_descent.png" alt="" style='height: 75%; width: 75%; object-fit: contain'>)
+<img src="{{site.baseurl}}/assets/img/media/double_descent.png" alt="" style='height: 75%; width: 75%; object-fit: contain'>)
 
 
 ## Math and Code
@@ -31,7 +31,7 @@ Let $$(X, Y)$$ be a random pair on $$\mathbb{R}^{d} \times \mathbb{R}$$ with dis
 
 Given a sample $$(X_{1}, Y_{1}),...,(X_{n}, Y_{n})$$ drawn independently from $$P_{XY}$$, we can approximate $f(x)$ using the Nadaraya-Watson Estimator where $$K: \mathbb{R}^{d} \rightarrow \mathbb{R}$$ is a kernel function and $$h > 0$$ is a bandwidth
 
-<img src="{{site.baseurl}}/media/nw_estimator.png" alt="" style='height: 50%; width: 50%; object-fit: contain'>
+<img src="{{site.baseurl}}/assets/img/media/nw_estimator.png" alt="" style='height: 50%; width: 50%; object-fit: contain'>
 
 
 ```python
@@ -85,7 +85,7 @@ def singular_nadaraya_watson_estimator(x, X, Y, h, K=stats.norm.pdf, a=1):
 
 The two singular kernels we will be focusing on are:
 
-<img src="{{site.baseurl}}/media/sing_kernel_1.png" alt="" style='height: 50%; width: 50%; object-fit: contain'>
+<img src="{{site.baseurl}}/assets/img/media/sing_kernel_1.png" alt="" style='height: 50%; width: 50%; object-fit: contain'>
 
 ```python
 def sing_kernel_1(x,a):
@@ -94,7 +94,7 @@ def sing_kernel_1(x,a):
 
 and
 
-<img src="{{site.baseurl}}/media/sing_kernel_2.png" alt="" style='height: 50%; width: 50%; object-fit: contain'>
+<img src="{{site.baseurl}}/assets/img/media/sing_kernel_2.png" alt="" style='height: 50%; width: 50%; object-fit: contain'>
 
 
 ```python
@@ -131,14 +131,14 @@ def binary_classification(x):
 ## Results
 ### Sine curve with `singular_kernel_1`:
 
-<img src="{{site.baseurl}}/media/sine_nw_singular.gif" alt="" style='height: 75%; width: 75%; object-fit: contain'>
+<img src="{{site.baseurl}}/assets/img/media/sine_nw_singular.gif" alt="" style='height: 75%; width: 75%; object-fit: contain'>
 
 
 The estimator fits the curve fairly well for values of *a* > .8. For some reason, the bandwidth, *h*, doesn't do anything to this specific example. Because the best value of *h* in the paper was .4, I chose to keep h constant.
 
 ### Sine curve with standard Gaussian kernel:
 
-<img src="{{site.baseurl}}/media/non_sing_sine.png" alt="" style='height: 60%; width: 60%; object-fit: contain'>
+<img src="{{site.baseurl}}/assets/img/media/non_sing_sine.png" alt="" style='height: 60%; width: 60%; object-fit: contain'>
 
 There are no animations for different parameters because the only tunable parameter is the bandwidth, *h*, which was held constant at .4
 
@@ -183,7 +183,7 @@ plt.show()
 
 
 ### Binary Data with `singular_kernel_2`:
-<img src="{{site.baseurl}}/media/binary_sing.gif" alt="" style='height: 75%; width: 75%; object-fit: contain'>
+<img src="{{site.baseurl}}/assets/img/media/binary_sing.gif" alt="" style='height: 75%; width: 75%; object-fit: contain'>
 
 In this animation, I sweep through several values for *h* with *a* constant. Then I hold *h* constant and sweep through several values of *a*
 
@@ -191,7 +191,7 @@ In this animation, I sweep through several values for *h* with *a* constant. The
 
 
 
-<img src="{{site.baseurl}}/media/non_sing_binary.gif" alt="" style='height: 75%; width: 75%; object-fit: contain'>
+<img src="{{site.baseurl}}/assets/img/media/non_sing_binary.gif" alt="" style='height: 75%; width: 75%; object-fit: contain'>
 
 The only tunable parameter here is *h*
 

@@ -40,7 +40,7 @@ $$ 10 \mapsto 5 $$
 
 If we repeat this individual mapping repeatedly, we will eventually encounter elements that map back to their original positions. While sitting in class, it became apparent that this process could be automated using a directed graph and a depth-first search algorithm. The nodes of the graph would represent the set elements and the edges would represent their mapping under $$\sigma$$. When the graph is drawn, the cyclic decompositions become obvious. The directed graph representing our $$\sigma$$ on the set of 10 symbols is the following:
 
-<img src="{{site.baseurl}}/media/digraph_cyclic.jpg" alt="" style='height: 75%; width: 75%; object-fit: contain'>
+<img src="{{site.baseurl}}/assets/img/media/digraph_cyclic.jpg" alt="" style='height: 75%; width: 75%; object-fit: contain'>
 
 Now that we can see the cycles in the form of a directed graph, let's take a look at the code that would allow us to generalize the process of finding the cyclic decomposition adn order of any permutaion.
 
