@@ -3,7 +3,7 @@ layout: about
 title: bio
 permalink: /bio/
 subtitle: Computer Science PhD Student at Northeastern University
-nav: true
+nav: false
 nav_order: 1
 
 profile:
