@@ -1,18 +1,19 @@
-"Adams":
-  - firstname: ["Edwin", "E.", "E. P.", "Edwin Plimpton"]
-    url: https://en.wikipedia.org/wiki/Edwin_Plimpton_Adams
+"Chaudhari":
+  - firstname: ["Harsh", "H."]
+    url: https://scholar.google.com/citations?user=w1lHWJ4AAAAJ&hl=en&oi=ao
 
-"Podolsky":
-  - firstname: ["Boris", "B.", "B. Y.", "Boris Yakovlevich"]
-    url: https://en.wikipedia.org/wiki/Boris_Podolsky
+"Oprea":
+    - firstname: ["Alina", "A."]
+      url: https://www.ccs.neu.edu/home/alina/
 
-"Rosen":
-  - firstname: ["Nathan", "N."]
-    url: https://en.wikipedia.org/wiki/Nathan_Rosen
+"Ullman":
+  - firstname: ["Jon", "Jonathan", "J."]
+    url: https://jonathan-ullman.github.io/
 
-"Bach": 
-  - firstname: ["Johann Sebastian", "J. S."]
-    url: https://en.wikipedia.org/wiki/Johann_Sebastian_Bach
+"Jagielski":
+  - firstname: ["Matthew", "M."]
+    url: https://jagielski.github.io/
 
-  - firstname: ["Carl Philipp Emanuel", "C. P. E."]
-    url: https://en.wikipedia.org/wiki/Carl_Philipp_Emanuel_Bach
+"Tramèr":
+  - firstname: ["Florian", "F."]
+    url: https://floriantramer.com/
