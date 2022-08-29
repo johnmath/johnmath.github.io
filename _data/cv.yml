@@ -65,29 +65,25 @@
 
 - title: Technical Skills
   type: map
-  name: Languages
-  value: Python, C++, Swift, JavaScript, MATLAB, Latex
-  name: Libraries and Tools
-  value: PyTorch, Opacus, sci-kit learn, NumPy, Asyncio, Pandas, Keras, OpenCV, Matplotlib, PIL, Linux, Git, Jira, Jupyter, SQL, GraphQL
+  contents:
+    - name: Languages
+      value: Python, C++, Swift, JavaScript, MATLAB, Latex
+    - name: Libraries and Tools
+      value: PyTorch, Opacus, sci-kit learn, NumPy, Asyncio, Pandas, Keras, OpenCV, Matplotlib, PIL, Linux, Git, Jira, Jupyter, SQL, GraphQL
 
 - title: Honors, Awards, and Involvement
-  type: nested_list
+  type: nap
   contents:
-    - title: HSF Scholar
-      items:
-        - 2019, 2020, 2021
-    - title: President's List
-      items:
-        - Fall 2017, Fall 2018, Fall 2020
-    - title: Dean's List
-      items:
-        - Spring 2019, Fall 2019, Spring 2020, Spring 2021
-    - title: Honors in the Major
-      items:
-        - Mathematics
-    - title: President
-      items:
-        - Society of Undergraduate Mathematics Majors (SUMS) at FSU
+    - name: HSF Scholar
+      value: 2019, 2020, 2021
+    - name: President's List
+      value: Fall 2017, Fall 2018, Fall 2020
+    - name: Dean's List
+      value: Spring 2019, Fall 2019, Spring 2020, Spring 2021
+    - name: Honors in the Major
+      value: Mathematics
+    - name: President
+      value: Society of Undergraduate Mathematics Majors (SUMS) at FSU
 
 - title: Academic Interests
   type: list
