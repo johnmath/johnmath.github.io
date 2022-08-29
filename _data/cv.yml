@@ -38,32 +38,30 @@
   contents:
     - title: Software Engineer Intern (iOS)
       institution: <a href="https://www.intuit.com/">Intuit</a> (Mountain View, CA)
-      year: Summer 2021
+      year: May 2021 - Aug 2021
     - title: Software Engineer Intern (iOS)
       institution: <a href="https://www.intuit.com/">Intuit</a> (Mountain View, CA)
-      year: Summer 2020
+      year: May 2021 - Aug 2021
     - title: Machine Learning Intern
       institution: <a href="https://labs.newsci.ai/">NewSci Labs</a> (Tallahassee, FL)
-      year: Fall 2019 - Spring 2021
+      year: Aug 2019 - May 2021
     - title: Software Engineer Intern
       institution: <a href="https://sphero.com/">Sphero</a> (Boulder, CO)
-      year: Summer 2019
+      year: May 2019 - Aug 2019
 
 - title: Teaching Experience
   type: time_table
   contents:
-    - title: Tutorial Assistant
-      institution: <a href="https://math.fsu.edu/">Florida State University</a> (Tallahassee, FL)
-      year: Fall 2018 - Spring 2019
-      description:
-        - College Algebra - Caclulus III
-
     - title: Learning Assistant
       institution: <a href="https://math.fsu.edu/">Florida State University</a> (Tallahassee, FL)
-      year: Fall 2019
+      year: Aug 2019 - Dec 2019
       description:
         - Caclulus I
-
+    - title: Tutorial Assistant
+      institution: <a href="https://math.fsu.edu/">Florida State University</a> (Tallahassee, FL)
+      year: Aug 2018 - May 2019
+      description:
+        - College Algebra - Caclulus III
 - title: Open Source Projects
   type: time_table
   contents:
