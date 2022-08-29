@@ -17,20 +17,8 @@
       description:
         - title: Advisors
           contents:
-            - <a href="https://www.ccs.neu.edu/home/alina/">Alina Oprea</a>
-            - <a href="https://jonathan-ullman.github.io/">Jonathan Ullman</a>
-        - "GPA: 3.84"
-    - title: Bachelor of Science in Mathematics
-      institution: <a href="https://math.fsu.edu/">Florida State University</a> (Tallahassee, FL)
-      year: 2017 - 2021
-      description:
-        - title: Honors Thesis
-          contents:
-            - <em>A Standardized Approach to Studying the Double Descent Phenomenon</em>
-        - title: Advisors
-        - Description 1.
-        - Description 2.
-
+            - Alina Oprea
+            - Jonathan Ullman
 - title: Experience
   type: time_table
   contents:
