@@ -17,8 +17,9 @@
       description:
         - title: Advisors
           contents:
-            - Alina Oprea
-            - Jonathan Ullman
+            - <a href="https://www.ccs.neu.edu/home/alina/">Alina Oprea</a>
+            - <a href="https://jonathan-ullman.github.io/">Jonathan Ullman</a>
+        - "GPA: 3.84"
 - title: Experience
   type: time_table
   contents:
