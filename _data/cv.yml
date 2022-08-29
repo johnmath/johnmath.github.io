@@ -19,8 +19,7 @@
           contents:
             - <a href="https://www.ccs.neu.edu/home/alina/">Alina Oprea</a>
             - <a href="https://jonathan-ullman.github.io/">Jonathan Ullman</a>
-      description:
-        - GPA: 3.84
+        - "GPA: 3.84"
     - title: Bachelor of Science in Mathematics
       institution: <a href="https://math.fsu.edu/">Florida State University</a> (Tallahassee, FL)
       year: 2017 - 2021
