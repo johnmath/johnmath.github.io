@@ -6,7 +6,12 @@ subtitle: Computer Science PhD Student at Northeastern University
 
 profile:
   align: right
+<<<<<<< HEAD
   image: me.jpeg
+=======
+  image: prof_pic.jpg
+  image_circular: false # crops the image to make it circular
+>>>>>>> 30e51bc90005f8bf36a4e1d59423531b04b22c30
   address: >
     <p>ISEC 6th Floor</p>
     <p>805 Columbus Ave</p>

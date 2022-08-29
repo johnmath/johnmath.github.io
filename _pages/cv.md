@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 layout: page
 title: cv
 permalink: /cv/
@@ -40,3 +41,12 @@ nav: true
 * **Dean's List** (Spring 2019, Fall 2019, Spring 2020, Spring 2021)
 * **Honors in the Major**, Mathematics
 * **President**, Society of Undergraduate Mathematics Majors (SUMS) at FSU
+=======
+layout: cv
+permalink: /cv/
+title: cv
+nav: true
+nav_order: 4
+cv_pdf: example_pdf.pdf
+---
+>>>>>>> 30e51bc90005f8bf36a4e1d59423531b04b22c30
