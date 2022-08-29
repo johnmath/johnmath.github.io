@@ -2,38 +2,47 @@
   type: map
   contents:
     - name: Full Name
-      value: John Abascal
+      value: Albert Einstein
     - name: Date of Birth
-      value: October 20th, 1998
+      value: 14th March 1879
     - name: Languages
-      value: English, Spanish
+      value: English, German
 
 - title: Education
   type: time_table
   contents:
-    - title: Doctor of Philosophy in Computer Science
-      institution: [Northeastern Univerity](https://www.khoury.northeastern.edu/) (Boston, MA)
-      year: 2021 - Present
+    - title: PhD
+      institution: University of Zurich, Zurich, Switzerland
+      year: 1905
       description:
-        - title: Advisors
+        - Description 1.
+        - Description 2.
+        - title: Description 3.
           contents:
             - Sub-description 1.
             - Sub-description 2.
-    - title: Bachelor of Science in Mathematics
-      institution: [Florida State University](https://math.fsu.edu/) (Tallahassee, FL)
-      year: 2017 - 2021
+    - title: Federal teaching diploma
+      institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
+      year: 1900
       description:
         - Description 1.
         - Description 2.
 
-- title: Technical Experience
+- title: Experience
   type: time_table
   contents:
-    - title: Software Engineer Intern (iOS)
-      institution: [Intuit](https://www.intuit.com/) (Mountain View, CA)
-      year: Summer 2021
-    - title: Software Engineer Intern (iOS)
-      institution: [Intuit](https://www.intuit.com/) (Mountain View, CA)
+    - title: Professor of Theoretical Physics
+      institution: Institute for Advanced Study, Princeton University
+      year: 1933 - 1955
+      description:
+        - Description 1.
+        - Description 2.
+        - title: Description 3.
+          contents:
+            - Sub-description 1.
+            - Sub-description 2.
+    - title: Visiting Professor
+      institution: California Institute of Technology, Pasadena, California, US
       year: 1933
       description:
         - Description 1.
