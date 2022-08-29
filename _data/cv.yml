@@ -12,7 +12,7 @@
   type: time_table
   contents:
     - title: Doctor of Philosophy in Computer Science
-      institution: Northeastern University (Boston, MA)
+      institution: [Northeastern University](https://www.khoury.northeastern.edu/) (Boston, MA)
       year: 2021 - 2026
       description:
         - Description 1.
