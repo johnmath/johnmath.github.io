@@ -12,19 +12,23 @@
   type: time_table
   contents:
     - title: Doctor of Philosophy in Computer Science
-      institution: "[Northeastern University](https://www.khoury.northeastern.edu/) (Boston, MA)"
-      year: 2021 - 2026
+      institution: <a href="https://www.khoury.northeastern.edu/">Northeastern University</a> (Boston, MA)
+      year: 2021 - Present
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
+        - title: Advisors
           contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Federal teaching diploma
-      institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
-      year: 1900
+            - <a href="https://www.ccs.neu.edu/home/alina/">Alina Oprea</a>
+            - <a href="https://jonathan-ullman.github.io/">Jonathan Ullman</a>
       description:
+        - GPA: 3.84
+    - title: Bachelor of Science in Mathematics
+      institution: <a href="https://math.fsu.edu/">Florida State University</a> (Tallahassee, FL)
+      year: 2017 - 2021
+      description:
+        - title: Honors Thesis
+          contents:
+            - <em>A Standardized Approach to Studying the Double Descent Phenomenon</em>
+        - title: Advisors
         - Description 1.
         - Description 2.
 
