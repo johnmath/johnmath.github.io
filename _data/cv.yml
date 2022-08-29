@@ -20,6 +20,18 @@
             - <a href="https://www.ccs.neu.edu/home/alina/">Alina Oprea</a>
             - <a href="https://jonathan-ullman.github.io/">Jonathan Ullman</a>
         - "GPA: 3.84"
+    - title: Bachelor of Science in Mathematics
+      institution: <a href="https://math.fsu.edu/">Florida State University</a> (Tallahassee, MA)
+      year: 2017 - 2021
+      description:
+        - title: Honors Thesis
+          contents:
+            - <em>A Standardized Approach to Studying the Double Descent Phenomenon</em>
+        - title: Advisors
+          contents:
+            - <a href="https://www.math.fsu.edu/~kercheva/">Alec Kercheval</a>
+            - <a href="https://www.sc.fsu.edu/people?uid=ndc08">Nathan Crock</a>
+        - "GPA: 3.79"
 - title: Experience
   type: time_table
   contents:
