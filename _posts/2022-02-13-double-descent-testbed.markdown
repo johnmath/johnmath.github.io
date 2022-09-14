@@ -33,7 +33,7 @@ Binary Classification | Regression
 Since this paper was published, [this idea has been extended to deep learning models](https://openai.com/blog/deep-double-descent/), and the results have matched Belkin's results with smaller-scale nonparametric regression. 
 
 
-<div style="text-align: center"><img src="{{site.baseurl}}/assets/img/media/double-descent.png" alt="OpenAI-DD"/></div>
+<img align="center" width="auto" height="auto" src="{{site.baseurl}}/assets/img/media/double-descent.png" alt="OpenAI-DD">
 
 **Fig 2. The Double Descent Curve**
 
