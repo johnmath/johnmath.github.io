@@ -33,7 +33,7 @@ Binary Classification | Regression
 Since this paper was published, [this idea has been extended to deep learning models](https://openai.com/blog/deep-double-descent/), and the results have matched Belkin's results with smaller-scale nonparametric regression. 
 
 
-<img align="center" width="auto" height="auto" src="{{site.baseurl}}/assets/img/media/double-descent.png" alt="OpenAI-DD">
+<img align="center" width="400" height="auto" src="{{site.baseurl}}/assets/img/media/double-descent.png" alt="OpenAI-DD">
 
 **Fig 2. The Double Descent Curve**
 
@@ -130,7 +130,7 @@ def Parameter_Count_Generation(param_counts, test_losses, past_interpolation_thr
 ```
 
 
-<img align="center" src="{{site.baseurl}}/assets/img/media/dd_2.gif" alt="param_gen">
+<img align="center" width="400" height="auto" src="{{site.baseurl}}/assets/img/media/dd_2.gif" alt="param_gen">
 
 **Fig 8. Our Parameter Counts Generation Algorithm Running on a Synthetic Double Descent Curve**
 

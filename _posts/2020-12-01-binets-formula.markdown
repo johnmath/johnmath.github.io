@@ -15,7 +15,7 @@ Typically, Binet's formula over $$\mathbb{N}$$ gives us $$F_{1} = 1, F_{2} = 1, 
 
 Notice that the only places where Binet's formula has real outputs on this interval are at the natural numbers, where the outputs are the typical Fibonacci numbers. What about the "negative Fibonacci numbers"? Let's see what the outputs of Binet's formula look like on the interval $$\left[-5, 0\right]$$.
 
-<img align="center" src="{{site.baseurl}}/assets/media/img/binet-neg5-0.gif" alt="" style='height: 75%; width: 75%; object-fit: contain'>
+<img align="center" src="{{site.baseurl}}/assets/img/media/binetnegative.gif" alt="" style='height: 75%; width: 75%; object-fit: contain'>
 
 We end up with $$F_{-1} = 1, F_{-2} = -1, F_{-3} = 2, F_{-4} = -3$$ ... This large spiral that's travelling around the complex plane actually intersects the real line at the usual Fibonacci numbers with alternating signs! There is actually a generalization of the typical recurrence relation that allows us to have negative values for $$n$$:
 
