@@ -37,8 +37,9 @@
   type: time_table
   contents:
     - title: Applied Research Intern (Data Privacy)
-      institution: <a href="https://www.linkedin.com/">LinkedIn</a> (Sunnyvale, CA)
+      institution: <a href="https://www.linkedin.com/">LinkedIn</a>
       year: May 2023 - Aug 2023
+      location: Sunnyvale, CA
     - title: Software Engineer Intern (iOS)
       institution: <a href="https://www.intuit.com/">Intuit</a> (Mountain View, CA)
       year: May 2021 - Aug 2021
