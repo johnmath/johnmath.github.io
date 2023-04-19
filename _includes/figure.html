@@ -1,4 +1,5 @@
 {%- assign img_path = include.path | remove: ".jpg" | remove: ".jpeg" | remove: ".png" | remove: ".tiff" -%}
+{%- assign alt_img_path = include.altpath | remove: ".jpg" | remove: ".jpeg" | remove: ".png" | remove: ".tiff" -%}
 
 <figure>
 
@@ -9,6 +10,7 @@
         class="responsive-img-srcset"
         media="(max-width: {{ i }}px)" 
         srcset="{{ img_path | relative_url }}-{{ i }}.webp"
+        onmouseover="{{ alt_img_path | relative_url }}-{{ i }}.webp"
       />
     {% endfor -%}
     {% endif %}
@@ -27,6 +29,7 @@
       {% if include.title %}title="{{ include.title }}"{% endif %} 
       {% if include.zoomable %}data-zoomable{% endif %}
       onerror="this.onerror=null; $('.responsive-img-srcset').remove();"
+      onmouseover="{{ include.altpath | relative_url }}"
     />
 
   </picture>
