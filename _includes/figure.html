@@ -13,18 +13,10 @@
         onmouseover="this.srcset='{{ alt_img_path | relative_url }}-{{ i }}.webp'"
       />
     
-      <script>
-        console.log("{{ alt_img_path | relative_url }}-{{ i }}.webp")
-      </script>
-    
     {% endfor -%}
     {% endif %}
 
     <!-- Fallback to the original file -->
-    
-     <script>
-        console.log("{{ include.altpath | relative_url }}")
-     </script>
     
     <img 
       src="{{ include.path | relative_url }}"
