@@ -12,6 +12,11 @@
         srcset="{{ img_path | relative_url }}-{{ i }}.webp"
         onmouseover="this.srcset='{{ alt_img_path | relative_url }}-{{ i }}.webp'"
       />
+    
+      <script>
+        console.log("{{ alt_img_path | relative_url }}-{{ i }}.webp")
+      <\script>
+    
     {% endfor -%}
     {% endif %}
 
