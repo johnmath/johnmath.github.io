@@ -21,6 +21,11 @@
     {% endif %}
 
     <!-- Fallback to the original file -->
+    
+     <script>
+        console.log("{{ alt_img_path | relative_url }}-{{ i }}.webp")
+     </script>
+    
     <img 
       src="{{ include.path | relative_url }}"
       {% if include.class %}class="{{ include.class }}"{% endif %}  
