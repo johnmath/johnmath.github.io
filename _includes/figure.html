@@ -23,7 +23,7 @@
     <!-- Fallback to the original file -->
     
      <script>
-        console.log("{{ alt_img_path | relative_url }}-{{ i }}.webp")
+        console.log("{{ include.altpath | relative_url }}")
      </script>
     
     <img 
