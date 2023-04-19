@@ -10,7 +10,8 @@
         class="responsive-img-srcset"
         media="(max-width: {{ i }}px)" 
         srcset="{{ img_path | relative_url }}-{{ i }}.webp"
-        onmouseover="this.setAttribute('srcset', '{{ alt_img_path | relative_url }}-{{ i }}.webp')"
+        onmouseover="this.srcset='{{ alt_img_path | relative_url }}-{{ i }}.webp'"
+        onmouseout="this.srcset='{{ img_path | relative_url }}-{{ i }}.webp'"
       />
     
     {% endfor -%}
@@ -32,6 +33,7 @@
       {% if include.zoomable %}data-zoomable{% endif %}
       onerror="this.onerror=null; $('.responsive-img-srcset').remove();"
       onmouseover="this.src='{{ include.altpath | relative_url }}'"
+      onmouseout="this.src='{{ include.path | relative_url }}'"
     />
 
   </picture>
