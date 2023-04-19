@@ -10,8 +10,8 @@
         class="responsive-img-srcset"
         media="(max-width: {{ i }}px)" 
         srcset="{{ alt_img_path | relative_url }}-{{ i }}.webp"
-        onmouseover="this.srcset='{{ alt_img_path | relative_url }}-{{ i }}.webp'"
-        onmouseout="this.srcset='{{ img_path | relative_url }}-{{ i }}.webp'"
+        onmouseover="this.src='{{ alt_img_path | relative_url }}-{{ i }}.webp'"
+        onmouseout="this.src='{{ img_path | relative_url }}-{{ i }}.webp'"
       />
     
     {% endfor -%}
