@@ -4,3 +4,7 @@
 
 "PhysRev":
   url: https://journals.aps.org/
+
+"IEEE S&P":
+  url: https://ieeexplore.ieee.org/xpl/conhome/1000646/all-proceedings
+  color: "9f0000"

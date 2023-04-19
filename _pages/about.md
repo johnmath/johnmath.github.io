@@ -7,7 +7,8 @@ subtitle: Computer Science PhD Student at Northeastern University
 profile:
   align: right
   image: me.jpeg
-  image_circular: true
+  alt_image: us.jpg
+  image_circular: false
 
   address: >
     <p>ISEC 6th Floor</p>
