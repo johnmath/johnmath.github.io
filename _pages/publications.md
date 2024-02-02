@@ -1,8 +1,8 @@
 ---
 layout: page
 permalink: /publications/
-title: research papers
-description: papers by categories in reversed chronological order.
+title: research
+description: papers in reversed chronological order.
 years: [2023, 2022]
 nav: true
 ---
