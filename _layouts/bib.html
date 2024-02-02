@@ -158,9 +158,6 @@
           {%- if entry.blog %}
             <a href="{{ entry.blog }}" class="btn btn-sm z-depth-0" role="button">Blog</a>
           {%- endif %}
-          {%- if entry.code %}
-            <a href="{{ entry.code }}" class="btn btn-sm z-depth-0" role="button">Code</a>
-          {%- endif %}
           {%- if entry.poster %}
             {% if entry.poster contains '://' -%}
             <a href="{{ entry.poster }}" class="btn btn-sm z-depth-0" role="button">Poster</a>
@@ -182,7 +179,7 @@
             <style>
                  /* Style only the Video button */
                   .btn.code-btn {
-                    background-color: #2bed79; /* Soft red background color */
+                    background-color: #368df7; /* Soft red background color */
                     color: #000000; /* White text color */
                     border-radius: 8px; /* Slightly rounded corners */
         /* Add any other styling specific to the Video button */
