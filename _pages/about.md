@@ -11,9 +11,8 @@ profile:
   image_circular: false
 
   address: >
-    <p>ISEC 6th Floor</p>
-    <p>805 Columbus Ave</p>
-    <p>Boston, MA 021155</p>
+    <p>177 Huntington</p>
+    <p>Boston, MA 02115</p>
 
 news: true  # includes a list of news items
 selected_papers: false # includes a list of papers marked as "selected={true}"
