@@ -6,7 +6,7 @@ subtitle: Computer Science PhD Student at Northeastern University
 
 profile:
   align: right
-  image: me.jpeg
+  image: me.png
   alt_image: us.jpg
   image_circular: false
 
