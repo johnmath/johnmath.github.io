@@ -8,7 +8,7 @@ profile:
   align: right
   image: me.png
   alt_image: us.jpg
-  image_circular: false
+  image_circular: true
 
   address: >
     <p>177 Huntington</p>
