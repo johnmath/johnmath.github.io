@@ -33,6 +33,19 @@
             - <a href="https://www.sc.fsu.edu/people?uid=ndc08">Nathan Crock</a>
         - "GPA: 3.79"
 
+- title: Research
+  type: time_table
+  contents:
+    - title: Phantom: General Trigger Attacks on Retrieval Augmented Language Generation
+      institution: <a href="https://arxiv.org/abs/2405.20485">arXiv</a>
+      year: 2024
+    - title: TMI! Finetuned Models Leak Private Information from their Pretraining Data
+      institution: <a href="https://petsymposium.org/popets/2024/popets-2024-0075.php">PETS 2024</a>
+      year: 2023
+      - title: SNAP: Efficient Extraction of Private Properties with Poisoning
+      institution: <a href="https://www.computer.org/csdl/proceedings-article/sp/2023/933600b935/1OXH05XwLIc">IEEE S&P 2023</a>
+      year: 2022
+
 - title: Work Experience
   type: time_table
   contents:
