@@ -42,7 +42,7 @@
     - title: TMI! Finetuned Models Leak Private Information from their Pretraining Data
       institution: <a href="https://petsymposium.org/popets/2024/popets-2024-0075.php">PETS 2024</a>
       year: 2023
-      - title: SNAP: Efficient Extraction of Private Properties with Poisoning
+    - title: SNAP: Efficient Extraction of Private Properties with Poisoning
       institution: <a href="https://www.computer.org/csdl/proceedings-article/sp/2023/933600b935/1OXH05XwLIc">IEEE S&P 2023</a>
       year: 2022
 
