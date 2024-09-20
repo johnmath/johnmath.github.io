@@ -36,7 +36,10 @@
 - title: Work Experience
   type: time_table
   contents:
-    - title: Applied Research Intern (Data Privacy)
+    - title: Applied Research Intern (Privacy Attacks on LLMs)
+      institution: <a href="https://www.linkedin.com/">LinkedIn</a>, New York, NY
+      year: May 2024 - Aug 2024
+    - title: Applied Research Intern (Differential Privacy)
       institution: <a href="https://www.linkedin.com/">LinkedIn</a>, Sunnyvale, CA
       year: May 2023 - Aug 2023
     - title: Software Engineer Intern (iOS)
