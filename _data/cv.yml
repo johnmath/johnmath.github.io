@@ -49,6 +49,9 @@
 - title: Work Experience
   type: time_table
   contents:
+    - title: Student Researcher (Machine Unlearning)
+      institution: <a href="https://about.google/">Google</a>, Cambridge, MA
+      year: May 2024 - Aug 2024
     - title: Applied Research Intern (Privacy Attacks on LLMs)
       institution: <a href="https://www.linkedin.com/">LinkedIn</a>, New York, NY
       year: May 2024 - Aug 2024
