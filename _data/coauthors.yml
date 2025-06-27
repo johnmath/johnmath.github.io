@@ -34,3 +34,7 @@
 "Jagielski":
   - firstname: ["Matthew", "M."]
     url: https://jagielski.github.io/
+
+"Smith":
+  - firstname: ["Adam", "A."]
+    url: https://cs-people.bu.edu/ads22/
