@@ -20,5 +20,5 @@ end
 group :other_plugins do
     gem 'httparty'
     gem 'feedjira'
-    gem 'uri', '0.10.1'
+    gem 'uri', '>= 0'
 end
