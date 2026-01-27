@@ -17,14 +17,14 @@ My research focuses on **privacy in deep learning** and the intersection of mach
 
 **Black-Box Privacy Attacks on Shared Representations in Multitask Learning**  
 *{{< authors >}}John Abascal, Nicolás Berrios, Alina Oprea, Jonathan Ullman, Adam Smith, Matthew Jagielski{{< /authors >}}*  
-arXiv preprint arXiv:2506.16460, 2025  
+International Conference on Learning Representations (ICLR) 2026
 {{< pub-buttons arxiv="https://arxiv.org/abs/2506.16460" >}}
 
 ### 2024
 
 **Phantom: General Trigger Attacks on Retrieval Augmented Language Generation**  
 *{{< authors >}}Harsh Chaudhari, Giorgio Severi, John Abascal, Matthew Jagielski, Christopher A. Choquette-Choo, Milad Nasr, Cristina Nita-Rotaru, Alina Oprea{{< /authors >}}*  
-arXiv preprint arXiv:2405.20485, 2024  
+ACM Transactions on AI Security and Privacy (TAISAP)
 {{< pub-buttons arxiv="https://arxiv.org/abs/2405.20485" >}}
 
 **TMI! Finetuned Models Leak Private Information from their Pretraining Data**  
