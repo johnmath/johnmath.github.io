@@ -18,7 +18,7 @@ My research focuses on **privacy in deep learning** and the intersection of mach
 **Black-Box Privacy Attacks on Shared Representations in Multitask Learning**  
 *{{< authors >}}John Abascal, Nicolás Berrios, Alina Oprea, Jonathan Ullman, Adam Smith, Matthew Jagielski{{< /authors >}}*  
 International Conference on Learning Representations (ICLR) 2026
-{{< pub-buttons arxiv="https://arxiv.org/abs/2506.16460" >}}
+{{< pub-buttons arxiv="https://arxiv.org/abs/2506.16460" video="https://iclr.cc/virtual/2026/poster/10007576" >}}
 
 ### 2024
 
