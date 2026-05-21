@@ -9,10 +9,15 @@ From a B.S. in Pure Math (Florida State University, 2021) with an honors thesis 
 ## Core mission: 
 - Leverage our current knowledge of machine learning, LLMs, and memorization to empirically measure privacy, security, and safety risks of deployed models.
 - Develop concrete, workable defenses against these risks and understand where and how existing defenses fail.
-- Work towards engineering practical systems that put state-of-the-art models and privacy/security/safety tech in people's hands instead of leaving them in research papers.
+- Work towards engineering practical systems that put state-of-the-art models and privacy/security/safety/trust tech in people's hands instead of leaving them in research papers.
+- Push the frontier of AI capabilities with 
 - Effectively and concisely communicate developments in all of these directions to decision-makers  
 
 ## Standout Research & Publications (Prioritize These!)
+- "Extracting Implicitly Learned Information from Distilled LLMs"  
+  John Abascal, Alina Oprea, Jonathan Ullman
+  - Summary: Empirically measuring the degree to which black-box query access to a distilled LLM leaks information from portions of the teacher's training data that the student was never explicitly trained on. 
+
 - "Should We Forget About Certified Unlearning? Evaluating the Pitfalls of Noisy Methods"  
   John Abascal, Matthew Jagielski, Eleni Triantafillou, Nicole Mitchell, Peter Kairouz
   - Summary: Study on whether our current unlearning methods based on differential privacy offer satisfactory trade-offs between compute cost, privacy budget, and utility in practice. 
