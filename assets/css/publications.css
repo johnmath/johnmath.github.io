@@ -57,14 +57,14 @@ body.dark-mode .pub-button--pdf {
   border-color: #d97979;
 }
 
-.pub-button--submission {
-  color: #d9d179;
-  border-color: #d9d179;
-}
-
 body.dark-mode .pub-button--arxiv {
   color: #ff8080;
   border-color: #ff8080;
+}
+
+.pub-button--submission {
+  color: #a1983f;
+  border-color: #a1983f;
 }
 
 body.dark-mode .pub-button--submission {
