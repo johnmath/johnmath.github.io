@@ -14,7 +14,7 @@ My research focuses on **privacy in deep learning** and the intersection of mach
 
 **Extracting Implicitly Learned Information from Distilled LLMs (Working Title)**
   *{{< authors >}}John Abascal, Alina Oprea, Jonathan Ullman{{< /authors >}}*
-  Under Submission... 
+  {{< pub-buttons submission="[https://www.youtube.com/watch?v=Q98HAs51U60](https://youtu.be/Q98HAs51U60?si=xI3qLv7lQjcnePM-)" >}}
 
 
 ### 2025
