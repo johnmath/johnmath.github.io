@@ -2,6 +2,9 @@
 {{- /* Usage: {{< pub-buttons pdf="url" code="url" talk="url" slides="url" arxiv="url" >}} */ -}}
 
 <div class="pub-buttons">
+  {{- if .Get "submission" -}}
+    <a href="{{ .Get "submission" }}" class="pub-button pub-button--submission" target="_blank" rel="noopener">Under Submission...</a>
+  {{- end -}}
   {{- if .Get "pdf" -}}
     <a href="{{ .Get "pdf" }}" class="pub-button pub-button--pdf" target="_blank" rel="noopener">PDF</a>
   {{- end -}}
