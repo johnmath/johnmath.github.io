@@ -4,15 +4,7 @@ date = "2025-10-01"
 author = "John Abascal"
 +++
 
-{{< highlight zsh >}}
-$john@website:~% whoami
-john
-
-$john@website:~% ls
-about.md    cv.md    research.md    me.png
-
-$john@website:~% open me.png && cat about.md
-{{< /highlight >}}
+{{< terminal >}}
 
 
 {{< figure src="img/me.png" alt="Portrait of Me" position="left" style="max-width: 128px !important; width: 128px !important; border-radius: 8px !important;" >}}

@@ -1,0 +1,261 @@
+{{ if not (isset .Page.Params "noterminal") }}
+<div class="terminal-interactive" id="terminal-box">
+  <div class="terminal-header">SHELL</div>
+  <div>&nbsp;</div>
+  <div class="terminal-output" id="terminal-output">
+    <div><span class="terminal-prompt">visitor@website:~$</span> whoami</div>
+    <div>john</div>
+    <div>&nbsp;</div>
+    <div><span class="terminal-prompt">visitor@website:~$</span> ls</div>
+    <div>about.md&nbsp;&nbsp;&nbsp;&nbsp;cv.md&nbsp;&nbsp;&nbsp;&nbsp;research.md&nbsp;&nbsp;&nbsp;&nbsp;me.png</div>
+    <div>&nbsp;</div>
+    <div><span class="terminal-prompt">visitor@website:~$</span> open me.png &amp;&amp; cat about.md</div>
+  </div>
+  <div class="terminal-input-line">
+    <span class="terminal-prompt">visitor@website:~$</span>
+    <input type="text" id="terminal-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="run `help` to see available commands" />
+  </div>
+</div>
+
+<style>
+  .terminal-interactive {
+    background: color-mix(in srgb, var(--foreground) 5%, transparent);
+    border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+    border-radius: var(--radius);
+    padding: 20px 10px;
+    font-family: "Fira Code", Monaco, Consolas, "Ubuntu Mono", monospace;
+    font-size: calc(var(--font-size) * 0.95);
+    margin: 25px 0;
+  }
+  .terminal-header {
+    font-size: 0.75em;
+    color: color-mix(in srgb, var(--foreground) 40%, transparent);
+    margin-bottom: 12px;
+    padding: 0 10px;
+  }
+  .terminal-output {
+    padding: 0 10px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+    height: calc(1.6em * 6);
+    overflow-y: auto;
+    scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .terminal-output::-webkit-scrollbar { display: none; }
+  .terminal-output div {
+    min-height: 1.4em;
+    flex-shrink: 0;
+  }
+  .terminal-prompt {
+    color: var(--accent);
+    margin-right: 8px;
+    user-select: none;
+  }
+  .terminal-input-line {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    margin-top: 4px;
+  }
+  .terminal-input-line input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--foreground);
+    font-family: inherit;
+    font-size: inherit;
+    flex: 1;
+    caret-color: var(--accent);
+    padding: 0;
+  }
+  .terminal-input-line input::placeholder {
+    color: color-mix(in srgb, var(--foreground) 35%, transparent);
+    font-style: italic;
+  }
+  .terminal-output img.terminal-img {
+    max-width: 200px;
+    border: 4px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 4px;
+    margin: 8px 0;
+    display: block;
+  }
+  @media (max-width: 684px) {
+    .terminal-interactive { display: none; }
+    .terminal-static { display: block; }
+  }
+  @media (min-width: 685px) {
+    .terminal-static { display: none; }
+  }
+</style>
+
+<div class="terminal-static">
+  <pre><code><span style="color:var(--accent)">$john@website:~%</span> whoami
+john
+
+<span style="color:var(--accent)">$john@website:~%</span> ls
+about.md    cv.md    research.md    me.png
+
+<span style="color:var(--accent)">$john@website:~%</span> open me.png &amp;&amp; cat about.md</code></pre>
+</div>
+
+<script>
+(function() {
+  if (window.innerWidth <= 684) return;
+
+  const input = document.getElementById('terminal-input');
+  const output = document.getElementById('terminal-output');
+  const terminalBox = document.getElementById('terminal-box');
+
+  const FILES = ['about.md', 'cv.md', 'research.md', 'me.png'];
+  const HIDDEN_FILES = ['.secret', '.bashrc', '.ssh'];
+  const HISTORY = [];
+  let historyIndex = -1;
+
+  function append(html) {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    output.appendChild(div);
+    while (output.children.length > 10) output.removeChild(output.firstChild);
+    output.scrollTop = output.scrollHeight;
+  }
+
+  function appendText(text) {
+    text.split('\n').forEach(line => {
+      append(line.replace(/</g, '&lt;').replace(/>/g, '&gt;') || '&nbsp;');
+    });
+  }
+
+  function prompt(cmd) {
+    append('<span class="terminal-prompt">visitor@website:~$</span> ' + cmd.replace(/</g, '&lt;'));
+  }
+
+  function handle(raw) {
+    const cmd = raw.trim();
+    if (!cmd) return;
+    HISTORY.unshift(cmd);
+    historyIndex = -1;
+    prompt(cmd);
+
+    switch(cmd) {
+      case 'whoami':
+        appendText('john');
+        break;
+      case 'pwd':
+        appendText('/home/john/website');
+        break;
+      case 'echo $USER':
+        appendText('john');
+        break;
+      case 'uname -a':
+        appendText('NortheasternOS 5.0 PhD #1 SMP x86_64 GNU/Linux');
+        break;
+      case 'ls':
+        appendText(FILES.join('    '));
+        break;
+      case 'ls -a':
+        appendText(['.', '..', ...HIDDEN_FILES, ...FILES].join('    '));
+        break;
+      case 'ls .secret':
+        appendText('.secret');
+        break;
+      case 'cat about.md':
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        break;
+      case 'cat cv.md':
+        window.location.href = '/cv';
+        break;
+      case 'cat research.md':
+        window.location.href = '/research';
+        break;
+      case 'open me.png':
+        append('<img class="terminal-img" src="/img/me.png" alt="me.png" />');
+        break;
+      case 'cat .secret':
+        append('<img class="terminal-img" src="/img/guava.jpeg" alt=".secret" />');
+        appendText('classified.');
+        break;
+      case 'curl resume.pdf':
+      case 'curl abascal-resume.pdf':
+        fakeCurl();
+        break;
+      case 'sudo':
+      case 'sudo su':
+        appendText('john is not in the sudoers file. This incident will be reported.');
+        break;
+      case 'ssh guava@lacajita.org':
+        appendText('ssh: connect to host lacajita.org: Permission denied (publickey, goofy_ahh_dog)');
+        break;
+      case 'history':
+        appendText(['cat .secret', 'ls -a', 'ssh guava@lacajita.org', 'sudo rm -rf node_modules', 'git push --force', 'pip install torch', 'python train.py  # ran for 3 days', 'cat /dev/urandom | grep meaning_of_life'].map((h, i) => `  ${i+1}  ${h}`).join('\n'));
+        break;
+      case 'finger':
+        appendText('Login: john\nEmail: abascal.j@northeastern.edu\nGitHub: github.com/johnmath\nLinkedIn: linkedin.com/in/johnabascal');
+        break;
+      case 'clear':
+        output.innerHTML = '';
+        break;
+      case 'help':
+      case 'man':
+      case '--help':
+        appendText(
+`Usage: <command>
+
+  whoami / pwd / uname -a / finger
+  ls / ls -a
+  cat <about.md|cv.md|research.md>
+  open me.png / curl resume.pdf
+  ssh / sudo / history / clear`
+        );
+        break;
+      default:
+        appendText(`zsh: command not found: ${cmd}`);
+    }
+  }
+
+  function fakeCurl() {
+    const lines = [
+      '  % Total    % Received % Xferd  Average Speed   Time',
+      '100  420k  100  420k    0     0   512k      0  0:00:01',
+      'abascal-resume.pdf saved.',
+    ];
+    let i = 0;
+    const iv = setInterval(() => {
+      appendText(lines[i++]);
+      if (i >= lines.length) {
+        clearInterval(iv);
+        const a = document.createElement('a');
+        a.href = '/abascal-resume.pdf';
+        a.download = 'abascal-resume.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    }, 300);
+  }
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      handle(input.value);
+      input.value = '';
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (historyIndex < HISTORY.length - 1) historyIndex++;
+      input.value = HISTORY[historyIndex] || '';
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIndex > 0) historyIndex--;
+      else { historyIndex = -1; input.value = ''; return; }
+      input.value = HISTORY[historyIndex] || '';
+    }
+  });
+
+  terminalBox.addEventListener('click', () => input.focus());
+
+})();
+</script>
+{{ end }}

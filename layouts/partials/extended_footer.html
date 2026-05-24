@@ -1,4 +1,222 @@
-<!--
-To add an extended footer section, please create
-`layouts/partials/extended_footer.html` in your Hugo directory.
--->
+<style>
+  #cursor-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  
+  .terminal-interactive {
+    position: relative;
+    z-index: 10000;
+    border-radius: 32px;
+    overflow: hidden;
+
+    background: color-mix(in srgb, var(--foreground) 4%, transparent);
+
+    border: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent);
+    border-top-color: color-mix(in srgb, var(--foreground) 35%, transparent);
+
+    /* Combined box-shadow handles the smooth corner fade perfectly with no gradients */
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--foreground) 20%, transparent),
+      inset 1px 0 0 color-mix(in srgb, var(--foreground) 8%, transparent), /* Smooth left curve edge */
+      inset 0 -1px 0 color-mix(in srgb, var(--background) 30%, transparent),
+      0 8px 32px color-mix(in srgb, var(--foreground) 6%, transparent),
+      0 2px 8px color-mix(in srgb, var(--foreground) 4%, transparent);
+
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  /* Completely clean out the choppy gradient pseudo-element */
+  .terminal-interactive::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    /* Smooth radial glow in the corner instead of a harsh linear angle */
+    background: radial-gradient(
+      circle at 0% 0%,
+      color-mix(in srgb, var(--foreground) 7%, transparent) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+    z-index: 1; /* Pushed above the parent background */
+  }
+</style>
+
+
+
+<script>
+  // Randomize glass gradient angle (120–200deg) and fade midpoint (20–60%) once per load
+  const r = document.documentElement;
+  r.style.setProperty('--glass-angle', `${120 + Math.random() * 80}deg`);
+  r.style.setProperty('--glass-mid',   `${20  + Math.random() * 40}%`);
+</script>
+
+<canvas id="cursor-canvas"></canvas>
+
+<script>
+(function() {
+  const canvas = document.getElementById('cursor-canvas');
+  const ctx = canvas.getContext('2d');
+
+  const GRID_CHARS = '!@#$%^&*-=+[]{}|;:,.<>?/~`ABCDEFabcdef0123456789';
+  const CELL = 18;
+  const REVEAL_RADIUS = 72;
+  const TICK_SECONDS = 1.5;
+  const TERMINAL_RADIUS = 32;
+
+  let targetMouse = null;
+  let smoothMouse = null;
+  let grid = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    buildGrid();
+  }
+
+  function buildGrid() {
+    grid = [];
+    const cols = Math.ceil(canvas.width / CELL) + 1;
+    const rows = Math.ceil(canvas.height / CELL) + 1;
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        grid.push({ x: col * CELL, y: row * CELL, col, row });
+      }
+    }
+  }
+
+  function getChar(col, row, t) {
+    const offset = ((col * 3 + row * 7) % 20) / 20;
+    const cellTick = Math.floor((t - offset * TICK_SECONDS) / TICK_SECONDS);
+    const h = (col * 2971 + row * 1583 + cellTick * 7013) % GRID_CHARS.length;
+    return GRID_CHARS[Math.abs(h)];
+  }
+
+  function getAccent() {
+    const hex = getComputedStyle(document.body)
+      .getPropertyValue('--accent').trim().replace('#', '');
+    const r = parseInt(hex.slice(0,2), 16);
+    const g = parseInt(hex.slice(2,4), 16);
+    const b = parseInt(hex.slice(4,6), 16);
+    return [r, g, b];
+  }
+
+  function pointInRoundedRect(x, y, rect, radius) {
+    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) return false;
+    const inX = x < rect.left + radius;
+    const inY = y < rect.top + radius;
+    const outX = x > rect.right - radius;
+    const outY = y > rect.bottom - radius;
+    if (!(inX || outX) || !(inY || outY)) return true;
+    let cx, cy;
+    if (inX && inY) { cx = rect.left + radius; cy = rect.top + radius; }
+    else if (outX && inY) { cx = rect.right - radius; cy = rect.top + radius; }
+    else if (inX && outY) { cx = rect.left + radius; cy = rect.bottom - radius; }
+    else { cx = rect.right - radius; cy = rect.bottom - radius; }
+    const dx = x - cx, dy = y - cy;
+    return dx*dx + dy*dy <= radius*radius;
+  }
+
+  function getTerminalRect() {
+    const box = document.getElementById('terminal-box');
+    return box ? box.getBoundingClientRect() : null;
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let [R, G, B] = getAccent();
+    const isDark = document.body.classList.contains('dark-mode');
+    const t = performance.now() / 1000;
+
+    if (targetMouse) {
+      if (!smoothMouse) smoothMouse = { ...targetMouse };
+      const dx = targetMouse.x - smoothMouse.x;
+      const dy = targetMouse.y - smoothMouse.y;
+      smoothMouse.x += dx * 0.12;
+      smoothMouse.y += dy * 0.12;
+    }
+
+    if (!smoothMouse) {
+      requestAnimationFrame(render);
+      return;
+    }
+
+    const termRect = getTerminalRect();
+    const peakAlpha = isDark ? 0.7 : 0.9;
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `${CELL - 4}px monospace`;
+
+    // glass center — lens distortion is fixed to the terminal, not the mouse
+    const glassX = termRect ? (termRect.left + termRect.right) / 2 : 0;
+    const glassY = termRect ? (termRect.top + termRect.bottom) / 2 : 0;
+    const glassR = termRect ? Math.max(termRect.width, termRect.height) / 2 : 1;
+
+    for (const cell of grid) {
+      const dx = cell.x - smoothMouse.x;
+      const dy = cell.y - smoothMouse.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+
+      const cellOverTerminal = termRect && pointInRoundedRect(cell.x, cell.y, termRect, TERMINAL_RADIUS);
+
+      // outside glass: only render near cursor
+      if (!cellOverTerminal && dist > REVEAL_RADIUS) continue;
+
+      let drawX = cell.x;
+      let drawY = cell.y;
+      let cellAlpha;
+
+      const t2 = dist / REVEAL_RADIUS;
+
+      if (cellOverTerminal) {
+        // lens distortion from glass center — fixed, doesn't follow mouse
+        const gx = cell.x - glassX;
+        const gy = cell.y - glassY;
+        const gd = Math.sqrt(gx*gx + gy*gy);
+        const gn = gd / glassR; // 0 at center, 1 at edge
+        // barrel push: peaks at mid-radius, zero at center and edge
+        const push = Math.atanh(3*gn * (1 - gn));
+        // slow wave per-cell gives subtle glass imperfection
+        const wave = Math.sin(t * 0.3 + cell.col * 0.7 + cell.row * 0.5) * 1.8;
+        drawX += (gx / (gd || 1)) * push*push + wave;
+        drawY += (gy / (gd || 1)) * push*push + wave;
+
+        cellAlpha = peakAlpha * Math.exp(-t2 * t2*2.5);
+      } else {
+        // normal background glow
+        cellAlpha = peakAlpha * Math.exp(-t2 * t2 * 5.5);
+      }
+    
+
+      if (cellAlpha < 0.003) continue;
+      ctx.fillStyle = `rgba(${R},${G},${B},${cellAlpha})`;
+      ctx.fillText(getChar(cell.col, cell.row, t), drawX, drawY);
+    }
+
+    requestAnimationFrame(render);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  render();
+
+  document.addEventListener('mousemove', (e) => {
+    targetMouse = { x: e.clientX, y: e.clientY };
+  });
+
+  document.addEventListener('mouseleave', () => {
+    targetMouse = null;
+    smoothMouse = null;
+  });
+
+  window.addEventListener('scroll', () => {
+    if (targetMouse) smoothMouse = { ...targetMouse };
+  }, { passive: true });
+})();
+</script>
