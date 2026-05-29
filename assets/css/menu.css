@@ -34,22 +34,25 @@
 }
 
 .navigation-menu .theme-toggle {
-  background: transparent;
-  border: none;
-  color: var(--foreground);
   cursor: pointer;
   padding: 8px;
-  border-radius: var(--radius);
+  width: 40px;
+  height: 40px;
+  border-radius: 30%;
   transition: background-color 0.15s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   margin-bottom: 10px;
+  color: var(--foreground);
 }
 
 .navigation-menu .theme-toggle:hover {
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--foreground) 25%, transparent),
+    0 4px 16px color-mix(in srgb, var(--foreground) 8%, transparent);
 }
 
 .navigation-menu .theme-toggle:focus-visible {

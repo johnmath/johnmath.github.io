@@ -112,7 +112,7 @@ about.md    cv.md    research.md    me.png
   const terminalBox = document.getElementById('terminal-box');
 
   const FILES = ['about.md', 'cv.md', 'research.md', 'me.png'];
-  const HIDDEN_FILES = ['.secret', '.bashrc', '.ssh'];
+  const HIDDEN_FILES = ['.guava.jpg', '.bashrc', '.ssh'];
   const HISTORY = [];
   let historyIndex = -1;
 
@@ -140,7 +140,7 @@ about.md    cv.md    research.md    me.png
     HISTORY.unshift(cmd);
     historyIndex = -1;
     prompt(cmd);
-
+    // Can i add an option to reject options on ls?
     switch(cmd) {
       case 'whoami':
         appendText('john');
@@ -152,20 +152,23 @@ about.md    cv.md    research.md    me.png
         appendText('john');
         break;
       case 'uname -a':
-        appendText('NortheasternOS 5.0 PhD #1 SMP x86_64 GNU/Linux');
+        appendText('guavOS 5.0 PhD #1 SMP x86_64 GNU/Linux');
         break;
-      case 'ls':
+      case 'ls':  
         appendText(FILES.join('    '));
         break;
       case 'ls -a':
         appendText(['.', '..', ...HIDDEN_FILES, ...FILES].join('    '));
         break;
-      case 'ls .secret':
-        appendText('.secret');
+      case 'ls .guava.jpg':
+        appendText('.guava.jpg (try running `open`)');
         break;
       case 'cat about.md':
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         break;
+      case 'cat':
+        appendText('cat: missing operand\nTry `cat research.md`');
+          break;
       case 'cat cv.md':
         window.location.href = '/cv';
         break;
@@ -175,9 +178,15 @@ about.md    cv.md    research.md    me.png
       case 'open me.png':
         append('<img class="terminal-img" src="/img/me.png" alt="me.png" />');
         break;
-      case 'cat .secret':
-        append('<img class="terminal-img" src="/img/guava.jpeg" alt=".secret" />');
-        appendText('classified.');
+      case 'open':FILES
+        appendText('open: missing operand\nTry `open me.png` (or a secret file...)');
+        break;
+      case 'open .guava.jpg':
+        append('<img class="terminal-img" src="/img/guava.jpeg" alt=".guava.jpg" />');
+        // appendText('.');
+        break;
+      case 'curl':
+        appendText('curl: missing operand\nTry `curl resume.pdf`');
         break;
       case 'curl resume.pdf':
       case 'curl abascal-resume.pdf':
@@ -185,13 +194,15 @@ about.md    cv.md    research.md    me.png
         break;
       case 'sudo':
       case 'sudo su':
-        appendText('john is not in the sudoers file. This incident will be reported.');
-        break;
-      case 'ssh guava@lacajita.org':
-        appendText('ssh: connect to host lacajita.org: Permission denied (publickey, goofy_ahh_dog)');
+        appendText('visitor is not in the sudoers file. This incident will be reported.');
         break;
       case 'history':
-        appendText(['cat .secret', 'ls -a', 'ssh guava@lacajita.org', 'sudo rm -rf node_modules', 'git push --force', 'pip install torch', 'python train.py  # ran for 3 days', 'cat /dev/urandom | grep meaning_of_life'].map((h, i) => `  ${i+1}  ${h}`).join('\n'));
+        if (HISTORY.length === 0) {
+          appendText('no commands in history');
+        } else {
+          appendText([...HISTORY].reverse().map((h, i) => `  ${i+1}  ${h}`).join('\n'));
+        }
+        // appendText(['cat .secret', 'ls -a', 'ssh guava@lacajita.org', 'sudo rm -rf node_modules', 'git push --force', 'pip install torch', 'python train.py  # ran for 3 days', 'cat /dev/urandom | grep meaning_of_life'].map((h, i) => `  ${i+1}  ${h}`).join('\n'))
         break;
       case 'finger':
         appendText('Login: john\nEmail: abascal.j@northeastern.edu\nGitHub: github.com/johnmath\nLinkedIn: linkedin.com/in/johnabascal');
@@ -213,7 +224,7 @@ about.md    cv.md    research.md    me.png
         );
         break;
       default:
-        appendText(`zsh: command not found: ${cmd}`);
+        appendText(`sh: command not found: ${cmd}`);
     }
   }
 

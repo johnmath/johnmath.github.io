@@ -1,0 +1,216 @@
+{{/*
+  liquid_glass.html — WebGL liquid-glass refraction over #terminal-box.
+  The "content behind the glass" is an animated character field rendered to a
+  texture; the slab shader refracts it with a rounded 3D edge. Terminal text
+  sits on top (keep .terminal-interactive background transparent).
+
+  Include this AFTER the terminal exists in the DOM, e.g. from footer.html:
+      {{ partial "liquid_glass.html" . }}
+
+  Requires (see notes in chat):
+    1) .terminal-interactive { background: transparent; }  so the glass shows through
+    2) in the cursor-canvas loop, skip cells over the terminal (glass owns that region)
+*/}}
+<canvas id="glass-canvas" aria-hidden="true"></canvas>
+<style>
+  #glass-canvas{
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;            /* below terminal text (10000) and cursor-canvas (9999) */
+    display: none;            /* shown by JS only when WebGL + desktop available */
+  }
+  @media (max-width: 684px){ #glass-canvas{ display:none !important; } }
+</style>
+
+<script>
+(function(){
+  // ---- guards: desktop only, WebGL required, respect reduced-motion ----
+  if (window.innerWidth <= 684) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const box = document.getElementById('terminal-box');
+  const canvas = document.getElementById('glass-canvas');
+  if (!box || !canvas) return;
+
+  const gl = canvas.getContext('webgl', { premultipliedAlpha:false, alpha:true })
+          || canvas.getContext('experimental-webgl');
+  if (!gl) return;  // no WebGL -> leave the plain terminal as-is
+
+  canvas.style.display = 'block';
+  const DPR = Math.min(window.devicePixelRatio || 1, 1.5);   // cap for perf
+
+  // ---------- offscreen character field (the "stuff behind the glass") ----------
+  const field = document.createElement('canvas');
+  const fx = field.getContext('2d');
+  const GRID_CHARS = '!@#$%^&*-=+[]{}|;:,.<>?/~`ABCDEFabcdef0123456789';
+  const CELL = 18 * DPR;
+  const TICK = 1.5;
+
+  function accent(){
+    const hex = getComputedStyle(document.body).getPropertyValue('--accent').trim().replace('#','');
+    return [parseInt(hex.slice(0,2),16), parseInt(hex.slice(2,4),16), parseInt(hex.slice(4,6),16)];
+  }
+  function charAt(col,row,t){
+    const off = ((col*3 + row*7) % 20) / 20;
+    const tick = Math.floor((t - off*TICK) / TICK);
+    const h = (col*2971 + row*1583 + tick*7013) % GRID_CHARS.length;
+    return GRID_CHARS[Math.abs(h)];
+  }
+  function drawField(w,h,t){
+    if (field.width!==w || field.height!==h){ field.width=w; field.height=h; }
+    fx.clearRect(0,0,w,h);
+    fx.fillStyle = '#000';                 // dark bed so the glass reads like glass
+    fx.fillRect(0,0,w,h);
+    const [R,G,B] = accent();
+    fx.textAlign='center'; fx.textBaseline='middle';
+    fx.font = `${CELL-4*DPR}px 'Fira Code', monospace`;
+    const cols = Math.ceil(w/CELL)+1, rows = Math.ceil(h/CELL)+1;
+    for(let row=0; row<rows; row++){
+      for(let col=0; col<cols; col++){
+        // gentle vertical fade so the lower (prompt) area stays calmer
+        const a = 0.55 * (0.5 + 0.5*Math.sin(t*0.4 + col*0.6 + row*0.5));
+        if (a < 0.02) continue;
+        fx.fillStyle = `rgba(${R},${G},${B},${a})`;
+        fx.fillText(charAt(col,row,t), col*CELL, row*CELL);
+      }
+    }
+  }
+
+  // ---------- shader ----------
+  const vsrc = `attribute vec2 p; void main(){ gl_Position=vec4(p,0.,1.); }`;
+  const fsrc = `
+    precision highp float;
+    uniform vec2  uRes;        // canvas size (px)
+    uniform vec2  uHalf;       // half-size of the slab (px)
+    uniform float uCorner;     // footprint corner radius (px)
+    uniform float uBevel;      // width of rounded edge zone (px)
+    uniform float uFeather;    // soft shoulder past the edge (px)
+    uniform sampler2D uTex;
+
+    vec2 toUV(vec2 f){ return vec2(f.x/uRes.x, 1.0 - f.y/uRes.y); }
+
+    float prof(float x){                       // quarter-circle roundover
+      x = clamp(x, 0.0, 1.0); float u = 1.0 - x; return sqrt(1.0 - u*u);
+    }
+    // signed inset distance from a rounded-rect edge (+ inside), centered on uRes/2
+    float inset(vec2 f){
+      vec2 q = f - uRes*0.5;
+      vec2 e = abs(q) - (uHalf - uCorner);
+      float d = length(max(e,0.0)) + min(max(e.x,e.y),0.0) - uCorner;
+      return -d;                                // positive inside
+    }
+    float height(vec2 f){ return prof((inset(f) + uFeather) / (uBevel + uFeather)); }
+
+    void main(){
+      vec2 f = gl_FragCoord.xy;
+      float ins = inset(f);
+      float cover = smoothstep(-1.0, 1.0, ins);     // antialiased rounded footprint
+      if (cover <= 0.0){ discard; }
+
+      float h = height(f);
+      vec3 col = texture2D(uTex, toUV(f)).rgb;       // unrefracted field (clear center)
+
+      float e = 1.5;
+      vec2 grad = vec2(height(f+vec2(e,0.)) - height(f-vec2(e,0.)),
+                       height(f+vec2(0.,e)) - height(f-vec2(0.,e)));
+      float slope = length(grad);
+      vec2 dir = slope>1e-5 ? grad/slope : vec2(0.0);
+      float curve = pow(1.0 - h, 1.5);               // peaks at the rounded rim
+      float disp = curve * 52.0;
+      vec2 off = dir * disp;
+      float ca = curve * 4.5;
+      col.r = texture2D(uTex, toUV(f + off + dir*ca)).r;
+      col.g = texture2D(uTex, toUV(f + off)).g;
+      col.b = texture2D(uTex, toUV(f + off - dir*ca)).b;
+
+      vec2 lightDir = normalize(vec2(-0.6,-0.8));
+      float spec = pow(max(dot(-dir, lightDir),0.0),3.0) * curve;
+      col += spec * 0.4;
+      col = mix(col, col*1.04+0.015, 0.3*curve);
+
+      gl_FragColor = vec4(col, cover);
+    }`;
+
+  function compile(type,src){
+    const s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s));
+    return s;
+  }
+  const prog=gl.createProgram();
+  gl.attachShader(prog,compile(gl.VERTEX_SHADER,vsrc));
+  gl.attachShader(prog,compile(gl.FRAGMENT_SHADER,fsrc));
+  gl.linkProgram(prog); gl.useProgram(prog);
+
+  const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  const ploc=gl.getAttribLocation(prog,'p');
+  gl.enableVertexAttribArray(ploc); gl.vertexAttribPointer(ploc,2,gl.FLOAT,false,0,0);
+
+  const U = n => gl.getUniformLocation(prog,n);
+  const uRes=U('uRes'), uHalf=U('uHalf'), uCorner=U('uCorner'),
+        uBevel=U('uBevel'), uFeather=U('uFeather');
+
+  const tex=gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D,tex);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+  // ---------- keep canvas glued to the terminal box ----------
+  let W=0, H=0;
+  function place(){
+    const r = box.getBoundingClientRect();
+    canvas.style.left = r.left + 'px';
+    canvas.style.top  = r.top  + 'px';
+    canvas.style.width  = r.width + 'px';
+    canvas.style.height = r.height + 'px';
+    W = Math.max(1, Math.round(r.width  * DPR));
+    H = Math.max(1, Math.round(r.height * DPR));
+    if (canvas.width!==W || canvas.height!==H){ canvas.width=W; canvas.height=H; }
+    gl.viewport(0,0,W,H);
+  }
+  window.addEventListener('resize', place);
+  window.addEventListener('scroll', place, { passive:true });
+
+  // ---------- render loop (pauses when tab hidden) ----------
+  function frame(){
+    if (document.hidden){ requestAnimationFrame(frame); return; }
+    place();
+    const t = performance.now()/1000;
+    drawField(W,H,t);
+
+    gl.bindTexture(gl.TEXTURE_2D,tex);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,field);
+
+    gl.uniform2f(uRes, W, H);
+    gl.uniform2f(uHalf, W/2, H/2);
+    gl.uniform1f(uCorner, 32*DPR);     // match terminal border-radius
+    gl.uniform1f(uBevel,  90*DPR);     // rounded-edge width  (tune)
+    gl.uniform1f(uFeather,16*DPR);     // soft shoulder       (tune)
+
+    gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+    requestAnimationFrame(frame);
+  }
+
+  place();
+  if (reduceMotion){
+    // draw a single static frame, no animation loop
+    drawField(W,H,0);
+    gl.bindTexture(gl.TEXTURE_2D,tex);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,field);
+    gl.uniform2f(uRes,W,H); gl.uniform2f(uHalf,W/2,H/2);
+    gl.uniform1f(uCorner,32*DPR); gl.uniform1f(uBevel,90*DPR); gl.uniform1f(uFeather,16*DPR);
+    gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+  } else {
+    requestAnimationFrame(frame);
+  }
+})();
+</script>

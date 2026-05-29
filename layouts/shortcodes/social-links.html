@@ -1,17 +1,17 @@
 {{- /* Usage: {{< social-links >}} */ -}}
 <div class="social-links">
   {{ if .Get "github" }}
-    <a href="{{ .Get "github" }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-link">
+    <a href="{{ .Get "github" }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-link glass">
       <i data-lucide="github"></i>
     </a>
   {{ end }}
   {{ if .Get "linkedin" }}
-    <a href="{{ .Get "linkedin" }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-link">
+    <a href="{{ .Get "linkedin" }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-link glass">
       <i data-lucide="linkedin"></i>
     </a>
   {{ end }}
   {{ if .Get "scholar" }}
-    <a href="{{ .Get "scholar" }}" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar" class="social-link">
+    <a href="{{ .Get "scholar" }}" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar" class="social-link glass">
       <i data-lucide="graduation-cap"></i>
     </a>
   {{ end }}
