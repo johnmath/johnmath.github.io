@@ -1,14 +1,14 @@
 +++
 title = "John Abascal"
-date = "2025-10-01"
+date = "2026-05-01"
 author = "John Abascal"
 +++
 
 {{< terminal >}}
 
 
-{{< figure src="img/me.png" alt="Portrait of Me" position="left" style="max-width: 128px !important; width: 128px !important; border-radius: 8px !important;" >}}
-
+<!-- {{< figure src="img/me.png" alt="Portrait of Me" position="left" style="max-width: 128px !important; width: 128px !important; border-radius: 8px !important;" >}} -->
+{{< image src="img/me.png" alt="Portrait of Me" position="left" style="max-width: 256px !important; width: 256px !important; border-radius: 20px !important;" >}}
 
 # Hi 👋
 

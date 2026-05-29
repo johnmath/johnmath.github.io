@@ -1,6 +1,6 @@
 +++
 title = "CV"
-date = "2025-10-01"
+date = "2026-05-01"
 author = "John Abascal"
 +++
 

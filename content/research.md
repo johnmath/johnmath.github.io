@@ -1,6 +1,6 @@
 +++
 title = "Research"
-date = "2025-10-01"
+date = "2026-05-01"
 author = "John Abascal"
 +++
 
@@ -12,7 +12,7 @@ My research focuses on **privacy in deep learning** and the intersection of mach
 
 ### 2026
 
-**Extracting Implicitly Learned Information from Distilled LLMs (Working Title)**
+**Reading Between the Logits: Student LLMs Can Leak their Teachers' Training Data**
   *{{< authors >}}John Abascal, Alina Oprea, Jonathan Ullman{{< /authors >}}*
   {{< pub-buttons submission="[https://www.youtube.com/watch?v=Q98HAs51U60](https://youtu.be/Q98HAs51U60?si=xI3qLv7lQjcnePM-)" >}}
 

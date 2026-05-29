@@ -135,94 +135,90 @@ about.md    cv.md    research.md    me.png
   }
 
   function handle(raw) {
-    const cmd = raw.trim();
-    if (!cmd) return;
-    HISTORY.unshift(cmd);
+    const line = raw.trim();
+    if (!line) return;
+    HISTORY.unshift(line);
     historyIndex = -1;
-    prompt(cmd);
-    // Can i add an option to reject options on ls?
-    switch(cmd) {
-      case 'whoami':
-        appendText('john');
-        break;
-      case 'pwd':
-        appendText('/home/john/website');
-        break;
-      case 'echo $USER':
-        appendText('john');
-        break;
-      case 'uname -a':
-        appendText('guavOS 5.0 PhD #1 SMP x86_64 GNU/Linux');
-        break;
-      case 'ls':  
-        appendText(FILES.join('    '));
-        break;
-      case 'ls -a':
-        appendText(['.', '..', ...HIDDEN_FILES, ...FILES].join('    '));
-        break;
-      case 'ls .guava.jpg':
-        appendText('.guava.jpg (try running `open`)');
-        break;
-      case 'cat about.md':
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        break;
-      case 'cat':
-        appendText('cat: missing operand\nTry `cat research.md`');
-          break;
-      case 'cat cv.md':
-        window.location.href = '/cv';
-        break;
-      case 'cat research.md':
-        window.location.href = '/research';
-        break;
-      case 'open me.png':
-        append('<img class="terminal-img" src="/img/me.png" alt="me.png" />');
-        break;
-      case 'open':FILES
-        appendText('open: missing operand\nTry `open me.png` (or a secret file...)');
-        break;
-      case 'open .guava.jpg':
-        append('<img class="terminal-img" src="/img/guava.jpeg" alt=".guava.jpg" />');
-        // appendText('.');
-        break;
-      case 'curl':
-        appendText('curl: missing operand\nTry `curl resume.pdf`');
-        break;
-      case 'curl resume.pdf':
-      case 'curl abascal-resume.pdf':
-        fakeCurl();
-        break;
-      case 'sudo':
-      case 'sudo su':
-        appendText('visitor is not in the sudoers file. This incident will be reported.');
-        break;
-      case 'history':
-        if (HISTORY.length === 0) {
-          appendText('no commands in history');
-        } else {
-          appendText([...HISTORY].reverse().map((h, i) => `  ${i+1}  ${h}`).join('\n'));
-        }
-        // appendText(['cat .secret', 'ls -a', 'ssh guava@lacajita.org', 'sudo rm -rf node_modules', 'git push --force', 'pip install torch', 'python train.py  # ran for 3 days', 'cat /dev/urandom | grep meaning_of_life'].map((h, i) => `  ${i+1}  ${h}`).join('\n'))
-        break;
+    prompt(line);
+
+    const parts = line.split(/\s+/);
+    const cmd = parts[0];
+    const args = parts.slice(1);
+    // collect flag letters: "-la" -> "la", "-a -t" -> "at"
+    const flags = args.filter(a => /^-/.test(a)).join('').replace(/-/g, '');
+    // non-flag arguments: ["me.png"]
+    const operands = args.filter(a => !/^-/.test(a));
+
+    switch (cmd) {
+      case 'whoami': appendText('john'); break;
+      case 'pwd':    appendText('/home/john/website'); break;
       case 'finger':
         appendText('Login: john\nEmail: abascal.j@northeastern.edu\nGitHub: github.com/johnmath\nLinkedIn: linkedin.com/in/johnabascal');
         break;
+      case 'uname': appendText('guavOS 5.0 PhD #1 SMP x86_64 GNU/Linux'); break;
+      case 'echo':  appendText(operands.join(' ').replace('$USER', 'john')); break;
+
+      case 'ls': {
+        let list = [...FILES];
+        if (flags.includes('a')) list = ['.', '..', ...HIDDEN_FILES, ...FILES];
+        if (flags.includes('r')) list.reverse();
+        if (flags.includes('l')) { appendText(list.join('\n')); break; }
+        appendText(list.join('    '));
+        break;
+      }
+
+      case 'cat': {
+        if (operands.length === 0) { appendText('cat: missing operand\nTry `cat research.md`'); break; }
+        const f = operands[0];
+        if (f === 'about.md') { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
+        else if (f === 'cv.md') { window.location.href = '/cv'; }
+        else if (f === 'research.md') { window.location.href = '/research'; }
+        else { appendText(`cat: ${f}: No such file or directory`); }
+        break;
+      }
+
+      case 'open': {
+        if (operands.length === 0) { appendText('open: missing operand\nTry `open me.png` (or a secret file...)'); break; }
+        const f = operands[0];
+        if (f === 'me.png')        append('<img class="terminal-img" src="/img/me.png" alt="me.png" />');
+        else if (f === '.guava.jpg') append('<img class="terminal-img" src="/img/guava.jpeg" alt=".guava.jpg" />');
+        else appendText(`open: cannot open '${f}': No such file`);
+        break;
+      }
+
+      case 'curl': {
+        const f = operands[0];
+        if (f === 'resume.pdf' || f === 'abascal-resume.pdf') fakeCurl();
+        else appendText('curl: missing operand\nTry `curl resume.pdf`');
+        break;
+      }
+
+      case 'sudo':
+        appendText('visitor is not in the sudoers file. This incident will be reported.');
+        break;
+
+      case 'history':
+        if (HISTORY.length === 0) appendText('no commands in history');
+        else appendText([...HISTORY].reverse().map((h, i) => `  ${i+1}  ${h}`).join('\n'));
+        break;
+
       case 'clear':
         output.innerHTML = '';
         break;
+
       case 'help':
       case 'man':
-      case '--help':
         appendText(
 `Usage: <command>
 
   whoami / pwd / uname -a / finger
-  ls / ls -a
+  ls / ls -a / ls -l
   cat <about.md|cv.md|research.md>
   open me.png / curl resume.pdf
   ssh / sudo / history / clear`
         );
         break;
+
       default:
         appendText(`sh: command not found: ${cmd}`);
     }

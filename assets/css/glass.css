@@ -10,3 +10,29 @@
   backdrop-filter: blur(4px) saturate(1.3);
   -webkit-backdrop-filter: blur(4px) saturate(1.3);
 }
+
+
+.glass-frame {
+  position: relative;
+  z-index: 10000;
+  display: inline-block;
+  padding: 10px;                      /* the visible glass margin */
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent);
+  border-top-color: color-mix(in srgb, white 35%, transparent);
+
+  background: color-mix(in srgb, var(--foreground) 6%, transparent);
+  backdrop-filter: blur(6px) saturate(1.1);
+  -webkit-backdrop-filter: blur(6px) saturate(1.1);
+
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 5%, transparent),
+    0 2px 8px color-mix(in srgb, var(--foreground) 2%, transparent),
+    0 20px 50px color-mix(in srgb, var(--foreground) 4%, transparent);
+}
+
+.glass-frame img {
+  display: block;
+  border-radius: 12px;                /* inner radius, smaller than the frame's */
+  margin: 0;
+}
