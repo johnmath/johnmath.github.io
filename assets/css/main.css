@@ -9,8 +9,8 @@
 } */
 
 :root {
-  --background: #eaeaea;
-  --foreground: #202124;
+  --background: #F2F0EF;
+  --foreground: #181818;
   --accent: #4a7c59;
   --font-size: 1rem;
   --line-height: 1.54em;
@@ -18,8 +18,8 @@
 }
 
 body.dark-mode {
-  --background: #202124;
-  --foreground: #eaeaea;
+  --background: #181818;
+  --foreground: #F2F0EF;
   --accent: #4de066; /* a slightly different accent for contrast */
 }
 
