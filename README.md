@@ -1,6 +1,6 @@
 # Terminal Themed Wesbite
 
-Based on the amazing [hugo theme](https://github.com/panr/hugo-theme-terminal) created by [panr](https://github.com/panr), extended by me to function as an academic website.
+Based on the amazing [hugo theme](https://github.com/panr/hugo-theme-terminal) created by [panr](https://github.com/panr), extended by me to function as an academic website with snazzy components.
 
 ## Support
 
